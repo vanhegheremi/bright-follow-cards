@@ -4,6 +4,7 @@ export type ClientStatus =
   | 'froid' 
   | 'Validé' 
   | 'A relancer'
+  | 'non-defini'
   | '';
 
 export type ClientCategory = 'MARKETING ALTERNATIF' | 'BRANDING' | 'GLOBAL' | '';

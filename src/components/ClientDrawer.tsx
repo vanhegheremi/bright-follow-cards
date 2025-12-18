@@ -18,7 +18,7 @@ interface ClientDrawerProps {
 }
 
 const statusOptions = [
-  { value: '', label: 'Non défini' },
+  { value: 'non-defini', label: 'Non défini' },
   { value: 'chaud', label: 'Chaud' },
   { value: 'contact établi', label: 'Contact établi' },
   { value: 'froid', label: 'Froid' },
@@ -224,8 +224,8 @@ export function ClientDrawer({ client, isOpen, onClose, onSave, mode }: ClientDr
                 <div className="space-y-2">
                   <Label htmlFor="statut">Statut</Label>
                   <Select
-                    value={editedClient.statut}
-                    onValueChange={(value) => setEditedClient({ ...editedClient, statut: value as any })}
+                    value={editedClient.statut || 'non-defini'}
+                    onValueChange={(value) => setEditedClient({ ...editedClient, statut: value === 'non-defini' ? '' : value as any })}
                   >
                     <SelectTrigger>
                       <SelectValue placeholder="Sélectionner" />
