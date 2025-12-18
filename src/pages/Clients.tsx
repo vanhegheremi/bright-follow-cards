@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { SearchFilter } from "@/components/SearchFilter";
 import { ClientCard } from "@/components/ClientCard";
 import { ClientDrawer } from "@/components/ClientDrawer";
 import { useClients } from "@/hooks/useClients";
-import { Client } from "@/types/client";
+import { Client, ClientStatus } from "@/types/client";
 
 const Clients = () => {
+  const [searchParams] = useSearchParams();
   const {
     clients,
     searchQuery,
@@ -22,6 +24,19 @@ const Clients = () => {
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
   const [drawerMode, setDrawerMode] = useState<"view" | "edit" | "note">("view");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  // Apply filters from URL params on mount
+  useEffect(() => {
+    const status = searchParams.get('status') as ClientStatus | null;
+    const urgency = searchParams.get('urgency') as 'urgent' | 'en-retard' | null;
+    
+    if (status) {
+      setStatusFilter(status);
+    }
+    if (urgency) {
+      setUrgencyFilter(urgency);
+    }
+  }, [searchParams, setStatusFilter, setUrgencyFilter]);
 
   const handleClientClick = (client: Client) => {
     setSelectedClient(client);

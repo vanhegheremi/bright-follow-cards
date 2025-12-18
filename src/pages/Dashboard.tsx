@@ -20,10 +20,10 @@ const Dashboard = () => {
         <section className="mb-12">
           <h2 className="font-display text-4xl mb-6">TABLEAU DE BORD</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <StatCard label="Total prospects" value={stats.total} />
-            <StatCard label="Clients chauds" value={stats.chaud} />
-            <StatCard label="À relancer" value={stats.aRelancer} />
-            <StatCard label="Urgents" value={urgentCount} highlight />
+            <StatCard label="Total prospects" value={stats.total} onClick={() => navigate('/clients')} />
+            <StatCard label="Clients chauds" value={stats.chaud} onClick={() => navigate('/clients?status=chaud')} />
+            <StatCard label="À relancer" value={stats.aRelancer} onClick={() => navigate('/clients?status=A relancer')} />
+            <StatCard label="Urgents" value={urgentCount} highlight onClick={() => navigate('/clients?urgency=urgent')} />
           </div>
         </section>
 
