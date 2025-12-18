@@ -29,6 +29,7 @@ const Clients = () => {
   useEffect(() => {
     const status = searchParams.get('status') as ClientStatus | null;
     const urgency = searchParams.get('urgency') as 'urgent' | 'en-retard' | null;
+    const clientId = searchParams.get('clientId');
     
     if (status) {
       setStatusFilter(status);
@@ -36,7 +37,16 @@ const Clients = () => {
     if (urgency) {
       setUrgencyFilter(urgency);
     }
-  }, [searchParams, setStatusFilter, setUrgencyFilter]);
+    if (clientId) {
+      // Find client and open drawer
+      const client = clients.find(c => c.id === clientId);
+      if (client) {
+        setSelectedClient(client);
+        setDrawerMode("view");
+        setIsDrawerOpen(true);
+      }
+    }
+  }, [searchParams, setStatusFilter, setUrgencyFilter, clients]);
 
   const handleClientClick = (client: Client) => {
     setSelectedClient(client);
