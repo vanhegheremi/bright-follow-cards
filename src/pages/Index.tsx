@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Header } from '@/components/Header';
-import { StatCard } from '@/components/StatCard';
-import { SearchFilter } from '@/components/SearchFilter';
-import { ClientCard } from '@/components/ClientCard';
-import { ClientDrawer } from '@/components/ClientDrawer';
-import { useClients } from '@/hooks/useClients';
-import { Client } from '@/types/client';
-import { Users, Flame, AlertTriangle, Clock } from 'lucide-react';
+import { useState } from "react";
+import { Header } from "@/components/Header";
+import { StatCard } from "@/components/StatCard";
+import { SearchFilter } from "@/components/SearchFilter";
+import { ClientCard } from "@/components/ClientCard";
+import { ClientDrawer } from "@/components/ClientDrawer";
+import { useClients } from "@/hooks/useClients";
+import { Client } from "@/types/client";
+import { Users, Flame, AlertTriangle, Clock } from "lucide-react";
 
 const Index = () => {
   const {
@@ -24,48 +24,48 @@ const Index = () => {
   } = useClients();
 
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
-  const [drawerMode, setDrawerMode] = useState<'view' | 'edit' | 'note'>('view');
+  const [drawerMode, setDrawerMode] = useState<"view" | "edit" | "note">("view");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const handleClientClick = (client: Client) => {
     setSelectedClient(client);
-    setDrawerMode('view');
+    setDrawerMode("view");
     setIsDrawerOpen(true);
   };
 
   const handleEditClick = (client: Client) => {
     setSelectedClient(client);
-    setDrawerMode('edit');
+    setDrawerMode("edit");
     setIsDrawerOpen(true);
   };
 
   const handleNoteClick = (client: Client) => {
     setSelectedClient(client);
-    setDrawerMode('note');
+    setDrawerMode("note");
     setIsDrawerOpen(true);
   };
 
   const handleAddClient = () => {
     const newClient: Client = {
-      id: '',
-      entreprise: '',
-      nom: '',
-      secteur: '',
-      poste: '',
-      mail: '',
-      telephone: '',
-      canalContact: '',
-      statut: '',
-      dernierEchange: '',
-      prochaineAction: '',
-      note: '',
-      aProposer: '',
-      categorie: '',
-      scoreStunt: '',
-      urgence: 'normal',
+      id: "",
+      entreprise: "",
+      nom: "",
+      secteur: "",
+      poste: "",
+      mail: "",
+      telephone: "",
+      canalContact: "",
+      statut: "",
+      dernierEchange: "",
+      prochaineAction: "",
+      note: "",
+      aProposer: "",
+      categorie: "",
+      scoreStunt: "",
+      urgence: "normal",
     };
     setSelectedClient(newClient);
-    setDrawerMode('edit');
+    setDrawerMode("edit");
     setIsDrawerOpen(true);
   };
 
@@ -86,26 +86,10 @@ const Index = () => {
         <section className="mb-12">
           <h2 className="font-display text-4xl mb-6">TABLEAU DE BORD</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <StatCard 
-              label="Total clients" 
-              value={stats.total} 
-            />
-            <StatCard 
-              label="Clients chauds" 
-              value={stats.chaud}
-              onClick={() => setStatusFilter('chaud')}
-            />
-            <StatCard 
-              label="À relancer" 
-              value={stats.aRelancer}
-              onClick={() => setStatusFilter('A relancer')}
-            />
-            <StatCard 
-              label="Urgents" 
-              value={urgentCount}
-              highlight
-              onClick={() => setUrgencyFilter('urgent')}
-            />
+            <StatCard label="Total prospects" value={stats.total} />
+            <StatCard label="Clients chauds" value={stats.chaud} onClick={() => setStatusFilter("chaud")} />
+            <StatCard label="À relancer" value={stats.aRelancer} onClick={() => setStatusFilter("A relancer")} />
+            <StatCard label="Urgents" value={urgentCount} highlight onClick={() => setUrgencyFilter("urgent")} />
           </div>
         </section>
 
@@ -114,7 +98,7 @@ const Index = () => {
           <div className="flex items-end justify-between mb-6">
             <h2 className="font-display text-4xl">CLIENTS</h2>
             <p className="text-muted-foreground">
-              {clients.length} résultat{clients.length !== 1 ? 's' : ''}
+              {clients.length} résultat{clients.length !== 1 ? "s" : ""}
             </p>
           </div>
 
