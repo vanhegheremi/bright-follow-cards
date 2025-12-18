@@ -6,7 +6,7 @@ export type ClientStatus =
   | 'A relancer'
   | '';
 
-export type ClientCategory = 'MA' | 'Global' | '';
+export type ClientCategory = 'MARKETING ALTERNATIF' | 'BRANDING' | 'GLOBAL' | '';
 
 export interface Client {
   id: string;
