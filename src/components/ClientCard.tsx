@@ -60,6 +60,15 @@ export function ClientCard({ client, onClick, onEdit, onAddNote }: ClientCardPro
           </Badge>
         </div>
 
+        {/* Category - only show for chaud, validé, contact établi */}
+        {client.categorie && ['chaud', 'contact établi', 'Validé'].includes(client.statut) && (
+          <div className="mb-3">
+            <span className="text-xs font-display tracking-wider bg-primary/20 px-2 py-1">
+              {client.categorie}
+            </span>
+          </div>
+        )}
+
         {/* Sector */}
         {client.secteur && (
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4 font-medium">

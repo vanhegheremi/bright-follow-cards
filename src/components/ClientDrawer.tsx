@@ -31,6 +31,12 @@ const urgencyOptions = [
   { value: 'en-retard', label: 'En retard' },
 ];
 
+const categoryOptions = [
+  { value: 'MARKETING ALTERNATIF', label: 'Marketing Alternatif' },
+  { value: 'BRANDING', label: 'Branding' },
+  { value: 'GLOBAL', label: 'Global' },
+];
+
 const statusConfig: Record<string, { variant: 'hot' | 'warm' | 'cold' | 'validated' | 'pending' | 'default' }> = {
   'chaud': { variant: 'hot' },
   'contact établi': { variant: 'warm' },
@@ -82,9 +88,16 @@ export function ClientDrawer({ client, isOpen, onClose, onSave, mode }: ClientDr
                 </p>
               )}
             </div>
-            <Badge variant={status.variant} className="ml-4">
-              {client.statut || 'NON DÉFINI'}
-            </Badge>
+            <div className="flex flex-col items-end gap-2">
+              <Badge variant={status.variant} className="ml-4">
+                {client.statut || 'NON DÉFINI'}
+              </Badge>
+              {client.categorie && ['chaud', 'contact établi', 'Validé'].includes(client.statut) && (
+                <span className="text-xs font-display tracking-wider bg-primary/20 px-2 py-1">
+                  {client.categorie}
+                </span>
+              )}
+            </div>
           </div>
         </SheetHeader>
 
@@ -240,6 +253,26 @@ export function ClientDrawer({ client, isOpen, onClose, onSave, mode }: ClientDr
                   </Select>
                 </div>
               </div>
+
+              {/* Category - only show for chaud, validé, contact établi */}
+              {['chaud', 'contact établi', 'Validé'].includes(editedClient.statut) && (
+                <div className="space-y-2">
+                  <Label htmlFor="categorie">Catégorie</Label>
+                  <Select
+                    value={editedClient.categorie || ''}
+                    onValueChange={(value) => setEditedClient({ ...editedClient, categorie: value as any })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Sélectionner une catégorie" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {categoryOptions.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
 
               <div className="space-y-2">
                 <Label htmlFor="secteur">Secteur</Label>
