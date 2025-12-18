@@ -14,7 +14,72 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clients: {
+        Row: {
+          a_proposer: string
+          canal_contact: string
+          categorie: string
+          created_at: string
+          date_relance: string | null
+          dernier_echange: string
+          entreprise: string
+          id: string
+          mail: string
+          nom: string
+          note: string
+          poste: string
+          prochaine_action: string
+          score_stunt: string
+          secteur: string
+          statut: string
+          telephone: string
+          updated_at: string
+          urgence: string
+        }
+        Insert: {
+          a_proposer?: string
+          canal_contact?: string
+          categorie?: string
+          created_at?: string
+          date_relance?: string | null
+          dernier_echange?: string
+          entreprise?: string
+          id?: string
+          mail?: string
+          nom?: string
+          note?: string
+          poste?: string
+          prochaine_action?: string
+          score_stunt?: string
+          secteur?: string
+          statut?: string
+          telephone?: string
+          updated_at?: string
+          urgence?: string
+        }
+        Update: {
+          a_proposer?: string
+          canal_contact?: string
+          categorie?: string
+          created_at?: string
+          date_relance?: string | null
+          dernier_echange?: string
+          entreprise?: string
+          id?: string
+          mail?: string
+          nom?: string
+          note?: string
+          poste?: string
+          prochaine_action?: string
+          score_stunt?: string
+          secteur?: string
+          statut?: string
+          telephone?: string
+          updated_at?: string
+          urgence?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
