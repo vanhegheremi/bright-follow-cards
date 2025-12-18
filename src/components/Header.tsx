@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Plus, LogOut } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { toast } from '@/hooks/use-toast';
 
 interface HeaderProps {
   onAddClient: () => void;
@@ -8,6 +10,21 @@ interface HeaderProps {
 
 export function Header({ onAddClient }: HeaderProps) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { signOut } = useAuth();
+
+  const handleLogout = async () => {
+    const { error } = await signOut();
+    if (error) {
+      toast({
+        title: "Erreur",
+        description: "Impossible de se déconnecter",
+        variant: "destructive",
+      });
+    } else {
+      navigate('/auth');
+    }
+  };
   
   return (
     <header className="bg-foreground text-background">
@@ -29,10 +46,21 @@ export function Header({ onAddClient }: HeaderProps) {
             </Link>
           </nav>
         </div>
-        <Button variant="yellow" onClick={onAddClient}>
-          <Plus className="w-4 h-4 mr-2" />
-          NOUVEAU CLIENT
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button variant="yellow" onClick={onAddClient}>
+            <Plus className="w-4 h-4 mr-2" />
+            NOUVEAU CLIENT
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={handleLogout}
+            className="text-background/70 hover:text-background hover:bg-background/10"
+            title="Se déconnecter"
+          >
+            <LogOut className="w-4 h-4" />
+          </Button>
+        </div>
       </div>
     </header>
   );
