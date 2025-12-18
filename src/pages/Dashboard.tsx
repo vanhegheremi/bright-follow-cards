@@ -40,7 +40,11 @@ const Dashboard = () => {
             {urgentClients.length > 0 ? (
               <ul className="space-y-3 max-h-48 overflow-y-auto">
                 {urgentClients.map(client => (
-                  <li key={client.id} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
+                  <li 
+                    key={client.id} 
+                    onClick={() => navigate(`/clients?clientId=${client.id}`)}
+                    className="flex items-center justify-between py-2 border-b border-border/50 last:border-0 cursor-pointer hover:bg-muted/50 -mx-2 px-2 rounded transition-colors"
+                  >
                     <div>
                       <p className="font-medium">{client.entreprise}</p>
                       <p className="text-sm text-muted-foreground">{client.nom}</p>
