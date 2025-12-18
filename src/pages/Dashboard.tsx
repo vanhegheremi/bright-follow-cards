@@ -8,8 +8,8 @@ const Dashboard = () => {
   const { clients, stats, urgentCount } = useClients();
   const navigate = useNavigate();
 
-  // Get urgent/overdue clients
-  const urgentClients = clients.filter(c => c.urgence === 'urgent' || c.urgence === 'en-retard').slice(0, 3);
+  // Get all urgent/overdue clients
+  const urgentClients = clients.filter(c => c.urgence === 'urgent' || c.urgence === 'en-retard');
 
   return (
     <div className="min-h-screen bg-background">
@@ -38,7 +38,7 @@ const Dashboard = () => {
               </span>
             </div>
             {urgentClients.length > 0 ? (
-              <ul className="space-y-3">
+              <ul className="space-y-3 max-h-48 overflow-y-auto">
                 {urgentClients.map(client => (
                   <li key={client.id} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
                     <div>
@@ -55,8 +55,8 @@ const Dashboard = () => {
               </ul>
             ) : (
               <p className="text-muted-foreground text-sm">Aucun client urgent</p>
-            )}
-          </section>
+            )
+          }</section>
 
           {/* Status Breakdown */}
           <section className="bg-card border border-border rounded-lg p-6">
