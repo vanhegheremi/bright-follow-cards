@@ -41,8 +41,11 @@ export function useClients() {
         return false;
       }
 
-      // Urgency filter
-      if (urgencyFilter !== 'all' && client.urgence !== urgencyFilter) {
+      // Urgency filter - 'urgent' includes both urgent and en-retard
+      if (urgencyFilter === 'urgent' && client.urgence !== 'urgent' && client.urgence !== 'en-retard') {
+        return false;
+      }
+      if (urgencyFilter === 'en-retard' && client.urgence !== 'en-retard') {
         return false;
       }
 
