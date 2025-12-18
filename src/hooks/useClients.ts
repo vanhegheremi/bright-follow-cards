@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
-import { Client, ClientStatus, ClientStats } from '@/types/client';
+import { Client, ClientStatus, ClientStats, ClientCategory } from '@/types/client';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -54,6 +54,7 @@ export function useClients() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<ClientStatus | 'all'>('all');
   const [urgencyFilter, setUrgencyFilter] = useState<'all' | 'urgent' | 'en-retard'>('all');
+  const [categoryFilter, setCategoryFilter] = useState<ClientCategory | 'all'>('all');
 
   // Fetch clients from database
   const fetchClients = useCallback(async () => {
@@ -119,9 +120,14 @@ export function useClients() {
         return false;
       }
 
+      // Category filter
+      if (categoryFilter !== 'all' && client.categorie !== categoryFilter) {
+        return false;
+      }
+
       return true;
     });
-  }, [clients, searchQuery, statusFilter, urgencyFilter]);
+  }, [clients, searchQuery, statusFilter, urgencyFilter, categoryFilter]);
 
   const updateClient = async (updatedClient: Client) => {
     try {
@@ -190,6 +196,8 @@ export function useClients() {
     setStatusFilter,
     urgencyFilter,
     setUrgencyFilter,
+    categoryFilter,
+    setCategoryFilter,
     updateClient,
     addClient,
     deleteClient,

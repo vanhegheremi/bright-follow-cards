@@ -1,7 +1,7 @@
 import { Search, Filter, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ClientStatus } from '@/types/client';
+import { ClientStatus, ClientCategory } from '@/types/client';
 
 interface SearchFilterProps {
   searchQuery: string;
@@ -10,6 +10,8 @@ interface SearchFilterProps {
   onStatusFilterChange: (status: ClientStatus | 'all') => void;
   activeUrgencyFilter: 'all' | 'urgent' | 'en-retard';
   onUrgencyFilterChange: (urgency: 'all' | 'urgent' | 'en-retard') => void;
+  activeCategoryFilter: ClientCategory | 'all';
+  onCategoryFilterChange: (category: ClientCategory | 'all') => void;
 }
 
 const statusFilters: { value: ClientStatus | 'all'; label: string }[] = [
@@ -27,6 +29,13 @@ const urgencyFilters: { value: 'all' | 'urgent' | 'en-retard'; label: string }[]
   { value: 'en-retard', label: 'EN RETARD' },
 ];
 
+const categoryFilters: { value: ClientCategory | 'all'; label: string }[] = [
+  { value: 'all', label: 'TOUS' },
+  { value: 'MARKETING ALTERNATIF', label: 'MARKETING ALT.' },
+  { value: 'BRANDING', label: 'BRANDING' },
+  { value: 'GLOBAL', label: 'GLOBAL' },
+];
+
 export function SearchFilter({
   searchQuery,
   onSearchChange,
@@ -34,13 +43,16 @@ export function SearchFilter({
   onStatusFilterChange,
   activeUrgencyFilter,
   onUrgencyFilterChange,
+  activeCategoryFilter,
+  onCategoryFilterChange,
 }: SearchFilterProps) {
-  const hasActiveFilters = activeStatusFilter !== 'all' || activeUrgencyFilter !== 'all' || searchQuery;
+  const hasActiveFilters = activeStatusFilter !== 'all' || activeUrgencyFilter !== 'all' || activeCategoryFilter !== 'all' || searchQuery;
 
   const clearFilters = () => {
     onSearchChange('');
     onStatusFilterChange('all');
     onUrgencyFilterChange('all');
+    onCategoryFilterChange('all');
   };
 
   return (
@@ -91,6 +103,28 @@ export function SearchFilter({
               onClick={() => onUrgencyFilterChange(filter.value)}
               className={`px-3 py-1.5 text-xs font-display tracking-wider transition-all ${
                 activeUrgencyFilter === filter.value
+                  ? 'bg-foreground text-background'
+                  : 'bg-muted text-muted-foreground hover:bg-foreground/10'
+              }`}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3">
+        <div className="flex items-center gap-2 text-muted-foreground">
+          <Filter className="w-4 h-4" />
+          <span className="text-xs uppercase tracking-widest font-medium">Catégorie</span>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {categoryFilters.map((filter) => (
+            <button
+              key={filter.value}
+              onClick={() => onCategoryFilterChange(filter.value)}
+              className={`px-3 py-1.5 text-xs font-display tracking-wider transition-all ${
+                activeCategoryFilter === filter.value
                   ? 'bg-foreground text-background'
                   : 'bg-muted text-muted-foreground hover:bg-foreground/10'
               }`}

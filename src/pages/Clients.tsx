@@ -19,6 +19,8 @@ const Clients = () => {
     setStatusFilter,
     urgencyFilter,
     setUrgencyFilter,
+    categoryFilter,
+    setCategoryFilter,
     updateClient,
     addClient,
   } = useClients();
@@ -123,6 +125,8 @@ const Clients = () => {
               onStatusFilterChange={setStatusFilter}
               activeUrgencyFilter={urgencyFilter}
               onUrgencyFilterChange={setUrgencyFilter}
+              activeCategoryFilter={categoryFilter}
+              onCategoryFilterChange={setCategoryFilter}
             />
           </div>
 
