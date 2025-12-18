@@ -11,6 +11,8 @@ const Clients = () => {
   const [searchParams] = useSearchParams();
   const {
     clients,
+    allClients,
+    loading,
     searchQuery,
     setSearchQuery,
     statusFilter,
@@ -39,14 +41,14 @@ const Clients = () => {
     }
     if (clientId) {
       // Find client and open drawer
-      const client = clients.find(c => c.id === clientId);
+      const client = allClients.find(c => c.id === clientId);
       if (client) {
         setSelectedClient(client);
         setDrawerMode("view");
         setIsDrawerOpen(true);
       }
     }
-  }, [searchParams, setStatusFilter, setUrgencyFilter, clients]);
+  }, [searchParams, setStatusFilter, setUrgencyFilter, allClients]);
 
   const handleClientClick = (client: Client) => {
     setSelectedClient(client);
@@ -125,7 +127,11 @@ const Clients = () => {
           </div>
 
           {/* Client Cards Grid */}
-          {clients.length > 0 ? (
+          {loading ? (
+            <div className="text-center py-16">
+              <p className="text-muted-foreground text-lg">Chargement...</p>
+            </div>
+          ) : clients.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {clients.map((client) => (
                 <ClientCard
