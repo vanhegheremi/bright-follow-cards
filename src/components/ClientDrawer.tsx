@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { X, Save, Mail, Phone, Calendar, Building2, User, Briefcase } from 'lucide-react';
+import { X, Save, Mail, Phone, Calendar, Building2, User, Briefcase, Edit2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface ClientDrawerProps {
@@ -14,6 +14,7 @@ interface ClientDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (client: Client) => void;
+  onEdit?: () => void;
   mode: 'view' | 'edit' | 'note';
 }
 
@@ -47,7 +48,7 @@ const statusConfig: Record<string, { variant: 'hot' | 'warm' | 'cold' | 'validat
   '': { variant: 'default' },
 };
 
-export function ClientDrawer({ client, isOpen, onClose, onSave, mode }: ClientDrawerProps) {
+export function ClientDrawer({ client, isOpen, onClose, onSave, onEdit, mode }: ClientDrawerProps) {
   const [editedClient, setEditedClient] = useState<Client | null>(null);
   const [newNote, setNewNote] = useState('');
 
@@ -352,8 +353,14 @@ export function ClientDrawer({ client, isOpen, onClose, onSave, mode }: ClientDr
         <div className="flex gap-3 pt-6 border-t border-border">
           <Button variant="outline" onClick={onClose} className="flex-1">
             <X className="w-4 h-4 mr-2" />
-            Annuler
+            {mode === 'view' ? 'Fermer' : 'Annuler'}
           </Button>
+          {mode === 'view' && onEdit && (
+            <Button variant="hero" onClick={onEdit} className="flex-1">
+              <Edit2 className="w-4 h-4 mr-2" />
+              Modifier
+            </Button>
+          )}
           {(mode === 'edit' || (mode === 'note' && newNote)) && (
             <Button variant="hero" onClick={handleSave} className="flex-1">
               <Save className="w-4 h-4 mr-2" />

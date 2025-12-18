@@ -160,6 +160,7 @@ const Clients = () => {
         isOpen={isDrawerOpen}
         onClose={() => setIsDrawerOpen(false)}
         onSave={handleSaveClient}
+        onEdit={() => setDrawerMode("edit")}
         mode={drawerMode}
       />
     </div>
