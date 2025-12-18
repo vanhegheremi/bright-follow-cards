@@ -18,6 +18,7 @@ interface ClientDrawerProps {
 }
 
 const statusOptions = [
+  { value: '', label: 'Non défini' },
   { value: 'chaud', label: 'Chaud' },
   { value: 'contact établi', label: 'Contact établi' },
   { value: 'froid', label: 'Froid' },
