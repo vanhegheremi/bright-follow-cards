@@ -1,18 +1,14 @@
 import { useState } from "react";
 import { Header } from "@/components/Header";
-import { StatCard } from "@/components/StatCard";
 import { SearchFilter } from "@/components/SearchFilter";
 import { ClientCard } from "@/components/ClientCard";
 import { ClientDrawer } from "@/components/ClientDrawer";
 import { useClients } from "@/hooks/useClients";
 import { Client } from "@/types/client";
-import { Users, Flame, AlertTriangle, Clock } from "lucide-react";
 
-const Index = () => {
+const Clients = () => {
   const {
     clients,
-    stats,
-    urgentCount,
     searchQuery,
     setSearchQuery,
     statusFilter,
@@ -82,17 +78,6 @@ const Index = () => {
       <Header onAddClient={handleAddClient} />
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        {/* Stats Section */}
-        <section className="mb-12">
-          <h2 className="font-display text-4xl mb-6">TABLEAU DE BORD</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <StatCard label="Total prospects" value={stats.total} />
-            <StatCard label="Clients chauds" value={stats.chaud} onClick={() => setStatusFilter("chaud")} />
-            <StatCard label="À relancer" value={stats.aRelancer} onClick={() => setStatusFilter("A relancer")} />
-            <StatCard label="Urgents" value={urgentCount} highlight onClick={() => setUrgencyFilter("urgent")} />
-          </div>
-        </section>
-
         {/* Clients Section */}
         <section>
           <div className="flex items-end justify-between mb-6">
@@ -150,4 +135,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Clients;
